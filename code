@@ -1,0 +1,88 @@
+#include <LiquidCrystal.h>
+ 
+boolean b_VERANO;
+boolean b_INVIERNO;
+ 
+LiquidCrystal lcd(1,2,4,5,6,7);
+ 
+void VERANO() {
+  b_VERANO = digitalRead(11);
+  b_INVIERNO = digitalRead(10);
+  if (digitalRead(12)) {
+    while (!(digitalRead(10))) {
+      while(!((!digitalRead(12))));
+      lcd.setCursor(0, 0);
+      lcd.print(String("HORARIO DE"));
+      lcd.setCursor(0, 2);
+      lcd.print(String("VERANO (ON)"));
+      digitalWrite(13,HIGH);
+      delay(43200000);
+      while(!((!digitalRead(12))));
+      digitalWrite(13,LOW);
+      lcd.clear();
+      lcd.setCursor(0, 0);
+      lcd.print(String("HORARIO DE"));
+      lcd.setCursor(0, 2);
+      lcd.print(String("VERANO (OFF)"));
+      delay(43200000);
+      lcd.clear();
+    }
+ 
+  }
+}
+ 
+void INVIERNO() {
+  b_VERANO = digitalRead(11);
+  b_INVIERNO = digitalRead(10);
+  if (digitalRead(10)) {
+    while (!(digitalRead(12))) {
+      while(!((!digitalRead(10))));
+      lcd.setCursor(0, 0);
+      lcd.print(String("HORARIO DE"));
+      lcd.setCursor(0, 2);
+      lcd.print(String("INVIERNO (ON)"));
+      digitalWrite(13,HIGH);
+      delay(54000000);
+      while(!((!digitalRead(10))));
+      digitalWrite(13,LOW);
+      lcd.clear();
+      lcd.setCursor(0, 0);
+      lcd.print(String("HORARIO DE"));
+      lcd.setCursor(0, 2);
+      lcd.print(String("INVIERNO (OFF)"));
+      delay(32400000);
+      lcd.clear();
+    }
+ 
+  }
+}
+ 
+void setup()
+{
+  lcd.begin(16, 2);
+ 
+pinMode(11, INPUT);
+pinMode(10, INPUT);
+pinMode(12, INPUT);
+pinMode(13, OUTPUT);
+  lcd.setCursor(0, 0);
+  lcd.print(String("INTERRUPTOR"));
+  lcd.setCursor(0, 1);
+  lcd.print(String("HORARIO"));
+  delay(3000);
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print(String("SELECCIONE"));
+  lcd.setCursor(0, 1);
+  lcd.print(String("INVIERNO-VERANO"));
+ 
+}
+ 
+ 
+void loop()
+{
+ 
+    VERANO();
+    INVIERNO();
+ 
+}
